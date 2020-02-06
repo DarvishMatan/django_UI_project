@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{%block content %}
+<style>
+
+
+.container{
+	margin-left:37.5%;
+	margin-top: 12%;
+    width:100%;
+    text-align: center;
+}
+
+</style>
+
+<h3>your valid message is {{user.comment.message}}.</h3>
+<div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Change the message shown to the thief</legend>
+                {{ m_form|crispy }}
+            </fieldset>
+            <div>
+                <input id ='i' class="btn btn-outline-info" type = 'button' value = "Confirm" onclick="myFunction()">
+            </div>
+
+            <div class="form-group" style="display: none" id = "b">
+                <button class="btn btn-outline-info" type="submit">Change</button>
+            </div>
+        </form>
+    </div>
+
+
+<script>
+
+function myFunction() {
+  if (confirm("Are You Sure?"))
+  {
+    document.getElementById("b").style.display = "block";
+        document.getElementById("i").style.display = "none";
+    }
+}
+
+// Get the input field
+
+</script>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{%block content %}
+<style>
+
+
+.container{
+	margin-left:37.5%;
+	margin-top: 12%;
+    width:100%;
+    text-align: center;
+}
+
+</style>
+
+<h3>your account is {{request.user.username}}.</h3>
+<div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Block or Unblock your computer</legend>
+                {{ u_form|crispy }}
+            </fieldset>
+            <div>
+                <input id ='i' class="btn btn-outline-info" type = 'button' value = "Confirm" onclick="myFunction()">
+            </div>
+
+            <div class="form-group" style="display: none" id = "b">
+                <button class="btn btn-outline-info" type="submit">Block/Unblock</button>
+            </div>
+        </form>
+    </div>
+
+
+<script>
+function myFunction() {
+  if (confirm("Are You Sure?"))
+  {
+    document.getElementById("b").style.display = "block";
+        document.getElementById("i").style.display = "none";
+  }
+    var input = document.getElementById("myInput");
+    input.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("myBtn").click();
+  }
+});
+}
+</script>
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "blog/base.html" %}
+
+{%block content %}
+<h1>Welcome to Defensive blocks.</h1>
+{% if user.is_authenticated %}
+<h3>your account is {{request.user.username}}.</h3>
+
+
+{% if user.services.activation == 1 %}
+<h1 style="text-align:center; margin-top:10%; font-size:80px">you blocked your comp</h1>
+{% else %}
+<h1 style="text-align:center; margin-top:10%; font-size:80px">you unblocked your comp</h1>
+{% endif %}
+
+{% endif %}
+{% endblock content %}

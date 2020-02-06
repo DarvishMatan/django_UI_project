@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>Login Page</title>
+    {% endif %}
+
+
+    <Style>
+        body{
+            margin-left:5px;
+            margin-top: 4%;
+        }
+        .nav ul
+            {
+            text-decoration: none;
+                text-align: left;
+                top: 0;
+                left: 0;
+                position: fixed;
+                width: 100%;
+                list-style: none;
+                background-color: aqua;
+                padding: 0;
+                margin: 0;
+                z-index: 6;
+            }
+            .nav li
+            {
+            text-decoration: none;
+                font-family: 'Oswald', sans-serif;
+                font-size: 1.2em;
+                line-height: 150%;
+                text-align: center;
+                display: inline-block;
+            }
+            .nav a
+            {
+            text-decoration: none;
+                color: 'aqua';
+                display: block;
+                transition: .3s background-color;
+            }
+            .nav a:hover
+            {
+                text-decoration: none;
+                background-color: #6CB9F3;
+            }
+
+            .nav li
+                {
+                    width: 15%;
+                    border-bottom: none;
+                    height:100%;
+                    line-height: 205%;
+                    font-size: 1.4em;
+                }
+                .nav li
+                {
+                    display: inline-block;
+                }
+    </Style>
+</head>
+<body>
+<div class="nav" id="navbar">
+            <ul>
+                <li id="lio" class = "home"><a  href="{% url 'index' %}"><b>Home</b></a></li>
+
+                {% if user.is_authenticated %}
+                    <li id="lio" class = "home"><a  href="{% url 'profile' %}"><b>Profile</b></a></li>
+                    <li id="lio" class = "home"><a  href="{% url 'service' %}"><b>Service</b></a></li>
+                    {% if user.services.activation == 1 %}
+                        <li id="lio" class = "home"><a  href="{% url 'messagesPage' %}"><b>Chat</b></a></li>
+                    {% endif %}
+                    <li id="lio"><a href="{% url 'logout' %}"><b>Logout</b></a></li>
+
+                {% else %}
+                    <li id="lio"><a href="{% url 'login' %}"><b>Signin</b></a></li>
+                    <li id="lio"><a href="{% url 'register' %}"><b>Signup</b></a></li>
+
+                {% endif %}
+                {% if request.user.is_superuser %}
+                        <li id="lio" class = "home"><a  href='/admin'><b>Admin Page</b></a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+{% if messages  %}
+{% for message in  messages  %}
+<div class = 'alert alert-{{ message.tags }}'>
+{{message}}
+    </div>
+{% endfor %}
+{% endif %}
+
+{%block content %}
+{%endblock%}
+</body>
+</html>
