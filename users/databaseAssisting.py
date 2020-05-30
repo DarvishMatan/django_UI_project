@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Error
 
 
-database = r"C:\\Users\matan\PycharmProjects\projectUI\psite\db.sqlite3"
+database = r"C:\\Users\matan\PycharmProjects\projectUI\psite\db.sqlite3"  # the location
 
 
 def create_connection(db_file):
@@ -20,49 +20,12 @@ def create_connection(db_file):
     return conn
 
 
-
-def select_all_tasks():
-    """
-    Query all rows in the tasks table
-    :param conn: the Connection object
-    :return:
-    """
-    conn = create_connection(database)
-
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM auth_user")
-
-    rows = cur.fetchall()
-
-    for row in rows:
-        print(row)
-
-
-def select_all_by_user(user):
-    """
-    Query tasks by priority
-    :param conn: the Connection object
-    :param priority:
-    :return:
-    """
-    conn = create_connection(database)
-
-    cur = conn.cursor()
-    query = "SELECT * FROM auth_user WHERE username='" + str(user) + "'"
-    cur.execute(query)
-
-    rows = cur.fetchall()
-
-    for row in rows:
-        print(row)
-
-
 def is_activated(username):
     """
     Query tasks by priority
-    :param conn: the Connection object
+    :param username: the username to be searched
     :param priority:
-    :return:
+    :return: activation
     """
     conn = create_connection(database)
     activation_query = ""
@@ -90,9 +53,8 @@ def is_activated(username):
 def get_message(username):
     """
     Query tasks by priority
-    :param conn: the Connection object
-    :param priority:
-    :return:
+    :param username: the usenrane to be searched
+    :return: the message
     """
     conn = create_connection(database)
 
@@ -107,6 +69,5 @@ def get_message(username):
         return str(activation[0])
 
 
-#is_activated('matandarvish')
 
 
